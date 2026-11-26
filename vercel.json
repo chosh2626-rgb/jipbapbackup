@@ -1,0 +1,28 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "echo 준비 완료",
+  "outputDirectory": "public",
+  "regions": [
+    "icn1"
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/join.html"
+    },
+    {
+      "source": "/host",
+      "destination": "/host.html"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "/api/quiz?__p=:path*"
+    }
+  ],
+  "functions": {
+    "api/quiz.js": {
+      "includeFiles": "questions.json"
+    }
+  }
+}

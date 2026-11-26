@@ -1,0 +1,114 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vercel에 올리기 - 집밥 프로젝트 은혜제</title>
+<style>
+body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;max-width:900px;margin:0 auto;padding:24px;color:#2b2550;font-size:19px;line-height:1.75;background:#faf8ff}
+h1{text-align:center;font-size:34px;margin:10px 0 4px}.lead{text-align:center;color:#6b6790;margin-top:0}
+h2{background:#6d4cff;color:#fff;border-radius:14px;padding:10px 18px;font-size:24px;margin-top:40px}
+h3{font-size:21px;margin:20px 0 4px;color:#5b3fd6}
+.box{background:#fff;border-radius:16px;padding:16px 22px;box-shadow:0 4px 16px rgba(80,60,160,.08);margin:12px 0}
+.warn{background:#fff4c2;border-radius:14px;padding:12px 18px;margin:12px 0}
+.ok{background:#d3f9d8;border-radius:14px;padding:12px 18px;margin:12px 0}
+.num{display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;border-radius:50%;background:#ff6fa5;color:#fff;margin-right:6px;font-weight:bold}
+b.k{background:#efeaff;padding:1px 8px;border-radius:6px}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid #e3ddff;padding:10px;text-align:left;vertical-align:top}th{background:#efeaff}
+code{background:#efeaff;padding:2px 8px;border-radius:6px}
+</style></head><body>
+<h1>🌐 150명 이상 대회 준비하기</h1>
+<p class="lead">퀴즈 프로그램을 <b>인터넷 서버</b>에 올려 두면, 진행자 컴퓨터를 켜 두지 않아도<br>몇백 명이 <b>휴대폰 데이터·와이파이 어디서나</b> 들어올 수 있어요.</p>
+
+<h1>▲ Vercel에 올려서 쓰기</h1>
+<p class="lead">GitHub에 있는 퀴즈를 <b>Vercel</b>(무료)에 연결하면<br>진행자 컴퓨터를 켜 두지 않아도 <b>휴대폰 데이터·와이파이 어디서나</b> 들어올 수 있어요.</p>
+
+<div class="warn">
+준비물: 이미 만들어 둔 <b>GitHub 보관함 jipbapbackup</b> (퀴즈 파일이 들어 있는 곳)<br>
+처음 한 번만 15분 정도 걸려요. 사이트 화면은 영어예요. 누를 버튼 이름을 그대로 적어 두었어요. 사이트가 바뀌어 글자가 조금 다를 수 있어요.
+</div>
+
+<div class="box">
+<b>한눈에 보기</b> — 이 순서대로 4단계만 하면 돼요.<br>
+<span class="num">1</span>Vercel 가입 → <span class="num">2</span>퀴즈 올리기(비밀번호 정하기) → <span class="num">3</span>저장소 연결 → <span class="num">4</span>다시 올리기
+</div>
+
+<h2>1단계. Vercel 가입하기</h2>
+<div class="box">
+<b>vercel.com</b> 접속 → <b class="k">Sign Up</b> → <b class="k">Hobby</b>(무료) 선택 → 이름 입력 → <b class="k">Continue with GitHub</b> → GitHub 로그인 후 <b class="k">Authorize</b>(허락).<br>
+카드 번호는 넣지 않아도 돼요.
+</div>
+
+<h2>2단계. 퀴즈 올리기 (진행자 비밀번호 정하기)</h2>
+<div class="box">
+<h3><span class="num">1</span>보관함 고르기</h3>
+첫 화면에서 <b class="k">Add New…</b> → <b class="k">Project</b><br>
+목록에서 <b>jipbapbackup</b> 옆의 <b class="k">Import</b>를 눌러요.<br>
+목록에 없으면 <b class="k">Install</b>(또는 Adjust GitHub App Permissions)를 눌러 jipbapbackup을 골라 주세요.
+<h3><span class="num">2</span>진행자 비밀번호 정하기 ← 꼭 해야 해요!</h3>
+설정 화면에서 <b class="k">Environment Variables</b>를 눌러 펼치고 아래처럼 써요.<br>
+• Key(이름): <code>HOST_PASSWORD</code><br>
+• Value(값): 원하는 비밀번호 (예: <code>eunhye2026</code>)<br>
+→ <b class="k">Add</b><br>
+다른 칸(Framework, Root Directory 등)은 <b>건드리지 않아요.</b>
+<h3><span class="num">3</span>올리기</h3>
+<b class="k">Deploy</b> 클릭 → 1분 정도 기다리면 축하 화면(🎉 Congratulations)이 나와요.<br>
+<b class="k">Continue to Dashboard</b>를 눌러요.
+</div>
+
+<h2>3단계. 저장소 연결하기 (점수·참가자 기억하는 곳)</h2>
+<div class="box">
+Vercel은 요청이 올 때만 잠깐 켜지는 방식이라, 참가자·점수를 적어 둘 <b>무료 저장소(Upstash Redis)</b>가 필요해요.
+<h3><span class="num">1</span>프로젝트 화면 위쪽 메뉴에서 <b class="k">Storage</b></h3>
+<h3><span class="num">2</span><b class="k">Create Database</b> (또는 Marketplace에서) → <b class="k">Upstash</b> → <b>Redis</b> 선택 → <b class="k">Continue</b></h3>
+<h3><span class="num">3</span>설정</h3>
+• 지역(Primary Region): <b>Seoul</b>이 있으면 Seoul, 없으면 <b>Tokyo</b> (ap-northeast)<br>
+• 요금제(Plan): <b>Free</b><br>
+• 이름: 아무거나 (예: <code>quiz-db</code>) → <b class="k">Create</b>
+<h3><span class="num">4</span>프로젝트에 연결</h3>
+<b class="k">Connect Project</b>가 나오면 <b>jipbapbackup</b>를 고르고 → <b class="k">Connect</b>.<br>
+(Development, Preview, Production 세 칸 모두 체크된 그대로 두세요.)
+</div>
+
+<h2>4단계. 다시 올리기 (Redeploy)</h2>
+<div class="box">
+저장소를 연결한 뒤에는 한 번 다시 올려야 적용돼요.<br>
+위쪽 메뉴 <b class="k">Deployments</b> → 맨 위 줄 오른쪽 <b class="k">⋯</b> → <b class="k">Redeploy</b> → 다시 <b class="k">Redeploy</b>.<br>
+1분 뒤 <b>Ready</b>가 되면 끝!
+</div>
+
+<h2>🎉 대회 날 쓰는 법</h2>
+<div class="box">
+<h3><span class="num">1</span>진행자 화면 열기</h3>
+Vercel 프로젝트 화면의 <b>Domains</b>에 있는 주소(예: <code>jipbapbackup-abc.vercel.app</code>) 뒤에 <code>/host</code>를 붙여 열어요.<br>
+예) <code>https://jipbapbackup-abc.vercel.app/host</code><br>
+→ 2단계에서 정한 <b>비밀번호</b> 입력 → QR코드 화면이 나와요. 빔프로젝터에 띄우세요.
+<h3><span class="num">2</span>참가자</h3>
+휴대폰 카메라로 QR코드를 찍어요. <b>데이터(LTE·5G)든 와이파이든</b> 상관없어요.<br>
+이름 → 나이대 → <b class="k">입장하기</b>
+<h3><span class="num">3</span>진행</h3>
+🎲 무작위 문제 내기 → 참가자가 답을 누르고 [제출하기] → 30초가 지나거나 모두 내면 정답 공개 → 🏆 순위
+</div>
+
+<div class="ok">
+✅ <b>좋은 점</b><br>
+• 진행자 컴퓨터·검은 창을 켜 둘 필요가 없어요. 노트북·태블릿 어디서든 /host 주소만 열면 돼요.<br>
+• 📝 문제 관리에서 고친 문제가 저장소에 저장돼서 <b>사라지지 않아요.</b><br>
+• 주소(QR)가 바뀌지 않아서 QR코드를 미리 인쇄해 두어도 돼요.
+</div>
+
+<div class="warn">
+⚠️ <b>알아 둘 점</b><br>
+• 화면이 실시간 연결 대신 <b>1초마다 확인</b>하는 방식이라, 제출 목록이 0.5~1초 늦게 뜰 수 있어요. 걸린 시간은 서버에서 재므로 순위는 공정해요.<br>
+• 무료 저장소는 한 달 사용량 한도가 있어요. 100명이 한 시간 하는 대회 몇 번은 충분해요.<br>
+• 대회 시작 전에 <b>♻️ 초기화 → 참가자까지 모두 지우기</b>로 연습 기록을 지워 주세요.<br>
+• GitHub의 퀴즈 파일을 고치면 Vercel에 1~2분 뒤 자동으로 반영돼요.
+</div>
+
+<h2>🙋 이럴 땐 이렇게</h2>
+<div class="box">
+<table>
+<tr><th>화면에 나온 말</th><th>할 일</th></tr>
+<tr><td>진행자 비밀번호(HOST_PASSWORD)가 아직 없어요</td><td>Vercel 프로젝트 → <b class="k">Settings</b> → <b class="k">Environment Variables</b>에서 <code>HOST_PASSWORD</code>를 만들고 → 4단계(Redeploy)</td></tr>
+<tr><td>저장소(Upstash Redis)가 아직 연결되지 않았어요</td><td>3단계를 하고 → 4단계(Redeploy)</td></tr>
+<tr><td>비밀번호가 맞지 않아요</td><td>Settings → Environment Variables에서 HOST_PASSWORD 값을 확인 (바꿨다면 Redeploy)</td></tr>
+<tr><td>404 / 페이지를 찾을 수 없어요</td><td>주소 끝이 <code>/host</code>인지 확인. 참가자 주소는 끝에 아무것도 없는 <code>https://….vercel.app/</code></td></tr>
+</table>
+</div>
+</body></html>

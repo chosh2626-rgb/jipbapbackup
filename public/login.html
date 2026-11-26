@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>진행자 로그인 · 집밥 프로젝트 은혜제</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="player">
+<div class="p-wrap" style="max-width:460px;padding-top:12vh">
+  <div class="p-brand">🧚 집밥 프로젝트 은혜제</div>
+  <div class="p-card">
+    <h2>🔒 진행자 로그인</h2>
+    <p class="p-sub" style="margin-top:0">진행자 화면은 비밀번호를 아는 사람만 열 수 있어요.</p>
+    <input class="p-input" id="pw" type="password" placeholder="진행자 비밀번호" autofocus>
+    <div class="err" id="err"></div>
+    <button class="p-btn" id="go">들어가기</button>
+  </div>
+  <p class="center p-sub">참가자라면 <a href="/">여기</a>를 눌러 주세요.</p>
+</div>
+<script>
+// 인터넷 서버 준비 상태 확인 (비밀번호·저장소)
+fetch('/api/info').then((r) => r.json()).then((i) => {
+  if (i.auth) return location.replace('/host');
+  const w = [];
+  if (i.pw === false) w.push('⚠️ 진행자 비밀번호(HOST_PASSWORD)가 아직 없어요.');
+  if (i.db === false) w.push('⚠️ 저장소(Upstash Redis)가 아직 연결되지 않았어요.');
+  if (w.length) document.getElementById('err').innerHTML = w.join('<br>') + '<br>사용설명서를 보고 설정한 뒤 다시 배포(Redeploy)해 주세요.';
+}).catch(() => {});
+const go = async () => {
+  const r = await fetch('/api/host/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: document.getElementById('pw').value }) }).then((r) => r.json()).catch(() => ({ error: '연결이 안 돼요. 다시 눌러 주세요.' }));
+  if (r.ok) location.href = '/host'; else document.getElementById('err').textContent = r.error;
+};
+document.getElementById('go').onclick = go;
+document.getElementById('pw').onkeydown = (e) => { if (e.key === 'Enter') go(); };
+</script>
+</body>
+</html>
