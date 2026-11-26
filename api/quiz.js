@@ -42,7 +42,8 @@ module.exports = async function handler(req, res) {
   const sub = url.searchParams.get('__p');
   const p = sub != null ? '/api/' + sub.replace(/^\/+/, '') : url.pathname;
   const method = req.method;
-  const isHost = !!(HOST_TOKEN && cookie(req, 'qh') === HOST_TOKEN);
+  // 비밀번호 없이 누구나 진행자 화면(/host)을 쓸 수 있음 (요청에 따라 로그인 없앰)
+  const isHost = true;
   try {
     if (p === '/api/info') {
       return json(res, 200, { ips: [], port: 0, net: { publicUrl: '', status: 'cloud', message: '' }, cloud: true, mode: 'poll', auth: isHost, db: hasDb, store: storeMode, pw: !!HOST_PASSWORD,

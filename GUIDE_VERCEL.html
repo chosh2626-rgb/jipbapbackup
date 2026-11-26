@@ -41,7 +41,8 @@ code{background:#efeaff;padding:2px 8px;border-radius:6px}
 첫 화면에서 <b class="k">Add New…</b> → <b class="k">Project</b><br>
 목록에서 <b>jipbapbackup</b> 옆의 <b class="k">Import</b>를 눌러요.<br>
 목록에 없으면 <b class="k">Install</b>(또는 Adjust GitHub App Permissions)를 눌러 jipbapbackup을 골라 주세요.
-<h3><span class="num">2</span>진행자 비밀번호 정하기 ← 꼭 해야 해요!</h3>
+<h3><span class="num">2</span>(지금은 안 해도 돼요) 진행자 비밀번호</h3>
+진행자 화면은 이제 <b>비밀번호 없이</b> 열려요. 아래 내용은 넣어도 되고 안 넣어도 돼요.<br>
 설정 화면에서 <b class="k">Environment Variables</b>를 눌러 펼치고 아래처럼 써요.<br>
 • Key(이름): <code>HOST_PASSWORD</code><br>
 • Value(값): 원하는 비밀번호 (예: <code>eunhye2026</code>)<br>
@@ -79,7 +80,7 @@ Vercel은 요청이 올 때만 잠깐 켜지는 방식이라, 참가자·점수�
 <h3><span class="num">1</span>진행자 화면 열기</h3>
 Vercel 프로젝트 화면의 <b>Domains</b>에 있는 주소(예: <code>jipbapbackup-abc.vercel.app</code>) 뒤에 <code>/host</code>를 붙여 열어요.<br>
 예) <code>https://jipbapbackup-abc.vercel.app/host</code><br>
-→ 2단계에서 정한 <b>비밀번호</b> 입력 → QR코드 화면이 나와요. 빔프로젝터에 띄우세요.
+→ 비밀번호 없이 바로 QR코드 화면이 나와요. 빔프로젝터에 띄우세요.
 <h3><span class="num">2</span>참가자</h3>
 휴대폰 카메라로 QR코드를 찍어요. <b>데이터(LTE·5G)든 와이파이든</b> 상관없어요.<br>
 이름 → 나이대 → <b class="k">입장하기</b>
@@ -108,7 +109,6 @@ Vercel 프로젝트 화면의 <b>Domains</b>에 있는 주소(예: <code>jipbapb
 <tr><th>화면에 나온 말</th><th>할 일</th></tr>
 <tr><td>진행자 비밀번호(HOST_PASSWORD)가 아직 없어요</td><td>Vercel 프로젝트 → <b class="k">Settings</b> → <b class="k">Environment Variables</b>에서 <code>HOST_PASSWORD</code>를 만들고 → 4단계(Redeploy)</td></tr>
 <tr><td>진행자 화면 아래 빨간 줄: ⚠️ 임시 저장 모드</td><td>저장소 없이 돌아가는 중이에요. QR 입장·연습은 되지만 기록이 사라질 수 있어요. 3단계(저장소 연결)를 하고 → 4단계(Redeploy). Redeploy를 빼먹으면 연결이 적용되지 않아요.</td></tr>
-<tr><td>비밀번호가 맞지 않아요</td><td>Settings → Environment Variables에서 HOST_PASSWORD 값을 확인 (바꿨다면 Redeploy)</td></tr>
 <tr><td>404 / 페이지를 찾을 수 없어요</td><td>주소 끝이 <code>/host</code>인지 확인. 참가자 주소는 끝에 아무것도 없는 <code>https://….vercel.app/</code></td></tr>
 </table>
 </div>

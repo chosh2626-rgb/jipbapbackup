@@ -2,10 +2,10 @@
 
 ## ▲ Vercel에 올리기 (이 보관함)
 1. vercel.com → GitHub로 가입 → **Add New… → Project** → `jipbapbackup` **Import**
-2. **Environment Variables**에 `HOST_PASSWORD` = 진행자 비밀번호 → **Deploy**
+2. **Deploy** (진행자 비밀번호는 필요 없어요)
 3. **Storage** → **Upstash Redis**(Free) 만들기 → 이 프로젝트에 **Connect**
 4. **Deployments → ⋯ → Redeploy**
-5. 진행자: `https://(주소).vercel.app/host` / 참가자: QR코드
+5. 진행자: `https://(주소).vercel.app/host` (비밀번호 없이 열림) / 참가자: QR코드
 
 자세한 그림 설명은 `GUIDE_VERCEL.html`을 보세요.
 
