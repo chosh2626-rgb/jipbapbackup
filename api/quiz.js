@@ -48,7 +48,11 @@ module.exports = async function handler(req, res) {
     if (p === '/api/info') {
       return json(res, 200, { ips: [], port: 0, net: { publicUrl: '', status: 'cloud', message: '' }, cloud: true, mode: 'poll', auth: isHost, db: hasDb, store: storeMode, pw: !!HOST_PASSWORD,
         // 진단용: 저장소 관련 환경변수 '이름'만 (진행자에게만)
-        envNames: isHost ? envNames : undefined });
+        envNames: isHost ? envNames : undefined,
+        // 진단용: 지금 실행 중인 배포 정보와 환경변수 '이름' 전체 (값은 보내지 않음)
+        deploy: { env: process.env.VERCEL_ENV || '', url: process.env.VERCEL_URL || '', commit: (process.env.VERCEL_GIT_COMMIT_SHA || '').slice(0, 7),
+          repo: process.env.VERCEL_GIT_REPO_SLUG || '', project: process.env.VERCEL_PROJECT_PRODUCTION_URL || '' },
+        allEnvNames: isHost ? Object.keys(process.env).filter((k) => !/^(npm_|NODE_|PATH$|HOME$|PWD$|LANG|TZ$|SHLVL|_$|AWS_|LAMBDA_)/.test(k)).sort() : undefined });
     }
     if (p === '/api/host/login' && method === 'POST') {
       const b = await readBody(req);
