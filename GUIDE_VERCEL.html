@@ -56,7 +56,8 @@ code{background:#efeaff;padding:2px 8px;border-radius:6px}
 <div class="box">
 Vercel은 요청이 올 때만 잠깐 켜지는 방식이라, 참가자·점수를 적어 둘 <b>무료 저장소(Upstash Redis)</b>가 필요해요.
 <h3><span class="num">1</span>프로젝트 화면 위쪽 메뉴에서 <b class="k">Storage</b></h3>
-<h3><span class="num">2</span><b class="k">Create Database</b> (또는 Marketplace에서) → <b class="k">Upstash</b> → <b>Redis</b> 선택 → <b class="k">Continue</b></h3>
+<h3><span class="num">2</span><b class="k">Create Database</b> (또는 Marketplace에서) → <b class="k">Upstash</b>(Upstash for Redis) 또는 <b class="k">Redis</b> 중 하나 선택 → <b class="k">Continue</b></h3>
+둘 다 쓸 수 있어요. 퀴즈가 연결된 저장소를 자동으로 찾아요.
 <h3><span class="num">3</span>설정</h3>
 • 지역(Primary Region): <b>Seoul</b>이 있으면 Seoul, 없으면 <b>Tokyo</b> (ap-northeast)<br>
 • 요금제(Plan): <b>Free</b><br>
@@ -106,7 +107,7 @@ Vercel 프로젝트 화면의 <b>Domains</b>에 있는 주소(예: <code>jipbapb
 <table>
 <tr><th>화면에 나온 말</th><th>할 일</th></tr>
 <tr><td>진행자 비밀번호(HOST_PASSWORD)가 아직 없어요</td><td>Vercel 프로젝트 → <b class="k">Settings</b> → <b class="k">Environment Variables</b>에서 <code>HOST_PASSWORD</code>를 만들고 → 4단계(Redeploy)</td></tr>
-<tr><td>저장소(Upstash Redis)가 아직 연결되지 않았어요</td><td>3단계를 하고 → 4단계(Redeploy)</td></tr>
+<tr><td>진행자 화면 아래 빨간 줄: ⚠️ 임시 저장 모드</td><td>저장소 없이 돌아가는 중이에요. QR 입장·연습은 되지만 기록이 사라질 수 있어요. 3단계(저장소 연결)를 하고 → 4단계(Redeploy). Redeploy를 빼먹으면 연결이 적용되지 않아요.</td></tr>
 <tr><td>비밀번호가 맞지 않아요</td><td>Settings → Environment Variables에서 HOST_PASSWORD 값을 확인 (바꿨다면 Redeploy)</td></tr>
 <tr><td>404 / 페이지를 찾을 수 없어요</td><td>주소 끝이 <code>/host</code>인지 확인. 참가자 주소는 끝에 아무것도 없는 <code>https://….vercel.app/</code></td></tr>
 </table>

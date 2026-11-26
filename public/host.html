@@ -138,13 +138,17 @@ async function hostPoll() {
     const r = await fetch('/api/state', { cache: 'no-store' });
     if (r.status === 403) return location.replace('/login.html');
     const d = await r.json();
-    if (d.error) hostBanner(d.error); else { hostBanner(''); onHostState(d); }
+    if (d.error) hostBanner(d.error);
+    else {
+      hostBanner(d.store === 'memory' ? '⚠️ 임시 저장 모드: 저장소가 연결되지 않아 기록이 사라질 수 있어요. 연습용으로만 쓰고, 대회 전에 저장소를 연결해 주세요.' : '');
+      onHostState(d);
+    }
   } catch { hostBanner('📶 서버와 연결이 불안정해요… 다시 연결하는 중'); }
   setTimeout(hostPoll, S && S.phase === 'question' ? 600 : 1200);
 }
 function hostBanner(msg) {
   let b = document.getElementById('netBanner');
-  if (!b) { b = document.createElement('div'); b.id = 'netBanner'; b.className = 'net-banner'; document.body.appendChild(b); }
+  if (!b) { b = document.createElement('div'); b.id = 'netBanner'; b.className = 'net-banner'; b.style.top = 'auto'; b.style.bottom = '0'; document.body.appendChild(b); }
   b.textContent = msg; b.classList.toggle('hidden', !msg);
 }
 const post = (url, body) => fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body || {}) }).then((r) => r.json());

@@ -24,7 +24,6 @@ fetch('/api/info').then((r) => r.json()).then((i) => {
   if (i.auth) return location.replace('/host');
   const w = [];
   if (i.pw === false) w.push('⚠️ 진행자 비밀번호(HOST_PASSWORD)가 아직 없어요.');
-  if (i.db === false) w.push('⚠️ 저장소(Upstash Redis)가 아직 연결되지 않았어요.');
   if (w.length) document.getElementById('err').innerHTML = w.join('<br>') + '<br>사용설명서를 보고 설정한 뒤 다시 배포(Redeploy)해 주세요.';
 }).catch(() => {});
 const go = async () => {

@@ -2,7 +2,7 @@
 // Vercel 설정(Settings → Environment Variables)에 HOST_PASSWORD(진행자 비밀번호)를 꼭 정해 주세요.
 const crypto = require('crypto');
 const quiz = require('../lib/quiz');
-const { hasDb } = require('../lib/store');
+const { hasDb, mode: storeMode, envNames } = require('../lib/store');
 
 const HOST_PASSWORD = String(process.env.HOST_PASSWORD || '');
 const HOST_TOKEN = HOST_PASSWORD ? crypto.createHash('sha256').update('quiz-host:' + HOST_PASSWORD).digest('hex') : '';
@@ -45,7 +45,9 @@ module.exports = async function handler(req, res) {
   const isHost = !!(HOST_TOKEN && cookie(req, 'qh') === HOST_TOKEN);
   try {
     if (p === '/api/info') {
-      return json(res, 200, { ips: [], port: 0, net: { publicUrl: '', status: 'cloud', message: '' }, cloud: true, mode: 'poll', auth: isHost, db: hasDb, pw: !!HOST_PASSWORD });
+      return json(res, 200, { ips: [], port: 0, net: { publicUrl: '', status: 'cloud', message: '' }, cloud: true, mode: 'poll', auth: isHost, db: hasDb, store: storeMode, pw: !!HOST_PASSWORD,
+        // 진단용: 저장소 관련 환경변수 '이름'만 (진행자에게만)
+        envNames: isHost ? envNames : undefined });
     }
     if (p === '/api/host/login' && method === 'POST') {
       const b = await readBody(req);
@@ -54,7 +56,7 @@ module.exports = async function handler(req, res) {
       res.setHeader('Set-Cookie', `qh=${HOST_TOKEN}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400; Secure`);
       return json(res, 200, { ok: true });
     }
-    if (!hasDb) return json(res, 503, { error: '저장소(Upstash Redis)가 아직 연결되지 않았어요. 사용설명서의 "저장소 연결" 단계를 해 주세요.' });
+    // 저장소가 없어도 임시 저장(메모리)으로 동작함 → 참가자는 QR로 바로 들어올 수 있음
 
     const hostOnly = p === '/api/state' || p.startsWith('/api/host/') || (p === '/api/questions' && method !== 'GET');
     if (hostOnly && !isHost) return json(res, 403, { error: '진행자 로그인이 필요해요.' });
@@ -79,7 +81,7 @@ module.exports = async function handler(req, res) {
     }
 
     // --- 진행자 ---
-    if (p === '/api/state') return json(res, 200, await quiz.hostState());
+    if (p === '/api/state') return json(res, 200, { ...(await quiz.hostState()), store: storeMode });
     if (p === '/api/questions' && method === 'GET') {
       // 정답이 들어 있으므로 진행자만 볼 수 있음
       if (!isHost) return json(res, 403, { error: '진행자 로그인이 필요해요.' });
